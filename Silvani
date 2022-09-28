@@ -1,0 +1,16 @@
+Set(
+    SasResult,
+    AzureBlobStorage.CreateShareLinkByPathV2(
+        "mystorageaccount",
+        "/mycontainer",
+        {
+            AccessProtocol: "HttpsOnly",
+            ExpiryTime: DateAdd(Now(), Hours, 1),
+            Permissions:"Write,Add,Create"
+        }
+    )
+);
+Set(
+    SasToken,
+    Mid(SasResult.WebUrl, Find("?", SasResult.WebUrl) + 1)
+);
